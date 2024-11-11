@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Comparison</title>
+    <style>
+        /* Basic styling */
+        body { font-family: Arial, sans-serif; background-color: #f4f4f9; color: #333; margin: 0; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+
+        /* Table Styling */
+        .code-container { padding: 10px; background-color: #f9f9f9; border: 1px solid #ddd; border-radius: 5px; margin-top: 20px; }
+        .code-container table { width: 100%; border-collapse: collapse; } /* Remove fixed width for flexible columns */
+        .code-container th, .code-container td {
+            padding: 5px 10px;  /* Reduced padding to make rows smaller */
+            border: 1px solid #ddd;
+            vertical-align: top;
+            white-space: nowrap; /* Prevent text wrapping */
+            text-overflow: ellipsis; /* Add ellipsis for overflow */
+            overflow: hidden;  /* Hide overflow if text is too long */
+        }
+
+        /* Custom styles for added/deleted lines */
+        .diff-add { background-color: #e6ffe6; }  /* Green for additions */
+        .diff-del { background-color: #ffe6e6; }  /* Red for deletions */
+
+        /* Prevent columns from having a fixed width */
+        .code-container td, .code-container th {
+            width: auto;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Code Comparison Tool</h1>
+
+    <form action="/compare" method="post">
+        <label for="before_code">Before Code:</label><br>
+        <textarea id="before_code" name="before_code" rows="6" style="width:100%;"></textarea><br><br>
+
+        <label for="after_code">After Code:</label><br>
+        <textarea id="after_code" name="after_code" rows="6" style="width:100%;"></textarea><br><br>
+
+        <button type="submit">Compare</button>
+    </form>
+
+    {% if comparison_html %}
+    <div class="code-container">
+        <!-- Display the comparison result -->
+        {{ comparison_html|safe }}
+    </div>
+    {% endif %}
+</div>
+
+</body>
+</html>
